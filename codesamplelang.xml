@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="system" method="upgrade">
+	<name>PLG_SYSTEM_CODESAMPLELANG</name>
+	<author>Custom</author>
+	<creationDate>2026</creationDate>
+	<copyright>Copyright (C) 2026. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<version>1.2.0</version>
+	<description>PLG_SYSTEM_CODESAMPLELANG_XML_DESCRIPTION</description>
+	<namespace path="src">Joomla\Plugin\System\CodeSampleLang</namespace>
+	<files>
+		<folder plugin="codesamplelang">services</folder>
+		<folder>src</folder>
+	</files>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_system_codesamplelang.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_system_codesamplelang.sys.ini</language>
+		<language tag="de-DE">de-DE/de-DE.plg_system_codesamplelang.ini</language>
+		<language tag="de-DE">de-DE/de-DE.plg_system_codesamplelang.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field
+					name="note_help"
+					type="note"
+					label="PLG_SYSTEM_CODESAMPLELANG_FIELD_NOTE_HELP_LABEL"
+					description="PLG_SYSTEM_CODESAMPLELANG_FIELD_NOTE_HELP_DESC"
+				/>
+				<field
+					name="languages"
+					type="subform"
+					label="PLG_SYSTEM_CODESAMPLELANG_FIELD_LANGUAGES_LABEL"
+					description="PLG_SYSTEM_CODESAMPLELANG_FIELD_LANGUAGES_DESC"
+					multiple="true"
+					layout="joomla.form.field.subform.repeatable-table"
+					component="com_plugins"
+					buttons="add,remove,move"
+				>
+					<form hidden="true">
+						<field
+							name="text"
+							type="text"
+							label="PLG_SYSTEM_CODESAMPLELANG_FIELD_TEXT_LABEL"
+							description="PLG_SYSTEM_CODESAMPLELANG_FIELD_TEXT_DESC"
+							required="true"
+							size="25"
+						/>
+						<field
+							name="value"
+							type="text"
+							label="PLG_SYSTEM_CODESAMPLELANG_FIELD_VALUE_LABEL"
+							description="PLG_SYSTEM_CODESAMPLELANG_FIELD_VALUE_DESC"
+							required="true"
+							size="25"
+						/>
+					</form>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

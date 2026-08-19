@@ -1,0 +1,12 @@
+This plugin is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 2, or
+(at your option) any later version, as published by the Free
+Software Foundation.
+
+The full, official license text is available at:
+https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
+
+Please replace this file with the verbatim text from the URL above
+before publishing this plugin, e.g.:
+
+  curl -o LICENSE.txt https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
