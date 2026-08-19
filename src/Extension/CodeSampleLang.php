@@ -37,13 +37,7 @@ final class CodeSampleLang extends CMSPlugin implements SubscriberInterface
 		['text' => 'Java',        'value' => 'java'],
 		['text' => 'C',           'value' => 'c'],
 		['text' => 'C#',          'value' => 'csharp'],
-		['text' => 'C++',         'value' => 'cpp'],
-		['text' => 'SQL',         'value' => 'sql'],
-		['text' => 'Bash/Shell',  'value' => 'bash'],
-		['text' => 'TypeScript',  'value' => 'typescript'],
-		['text' => 'JSON',        'value' => 'json'],
-		['text' => 'YAML',        'value' => 'yaml'],
-		['text' => 'Plain text',  'value' => 'plaintext'],
+		['text' => 'C++',         'value' => 'cpp']
 	];
 
 	/**

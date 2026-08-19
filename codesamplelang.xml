@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="plugin" group="system" method="upgrade">
 	<name>PLG_SYSTEM_CODESAMPLELANG</name>
-	<author>Custom</author>
+	<author>Michael Speckenbach</author>
 	<creationDate>2026</creationDate>
 	<copyright>Copyright (C) 2026. All rights reserved.</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
