@@ -2,7 +2,11 @@
 
 /**
  * @package     Joomla.Plugin
- * @subpackage  System.codesamplelang
+ * @subpackage  System.CodeSampleLang
+ *
+ * @copyright   Copyright (C) 2026 Speckenbach.NET. All rights reserved.
+ * @author      Michael Speckenbach
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace Joomla\Plugin\System\CodeSampleLang\Extension;
@@ -15,17 +19,17 @@ use Joomla\Event\Event;
 use Joomla\Event\SubscriberInterface;
 
 /**
- * Fügt dem TinyMCE-Dialog "Code-Beispiel einfügen" (codesample-Plugin, PRISM-basiert)
- * zusätzliche Sprachen hinzu. Die value muss exakt der Prism-Sprachkennung entsprechen
- * (wird als class="language-xxx" in den <code>-Tag geschrieben).
+ * Adds additional languages to TinyMCE "Insert code sample" dialog (codesample plugin, PRISM-based). 
+ * The value must exactly match the Prism language identifier
+ * (written as class="language-xxx" in the <code> tag).
  */
 final class CodeSampleLang extends CMSPlugin implements SubscriberInterface
 {
 	/**
-	 * Fallback-Liste, falls im Plugin-Backend noch keine einzige Zeile
-	 * gepflegt wurde (z. B. direkt nach der Installation). Sobald der
-	 * Administrator die Tabelle im Backend ausfüllt, wird diese hier
-	 * komplett ignoriert.
+	 * Fallback list for cases where not a single row has yet been
+	 * entered in the plugin backend (e.g., immediately after installation). Once the
+	 * administrator populates the table in the backend, this list
+	 * is completely ignored.
 	 */
 	private const DEFAULT_LANGUAGES = [
 		['text' => 'HTML/XML',    'value' => 'markup'],
@@ -41,10 +45,10 @@ final class CodeSampleLang extends CMSPlugin implements SubscriberInterface
 	];
 
 	/**
-	 * Liest die im Plugin-Backend gepflegte Sprachliste (Subform-Feld
-	 * "languages") aus und wandelt sie in das von codesample_languages
-	 * erwartete Format [['text' => ..., 'value' => ...], ...] um.
-	 * Fällt auf DEFAULT_LANGUAGES zurück, wenn noch keine Zeile gepflegt ist.
+	 * Reads the language list maintained in the plugin backend (subform field
+	 * "languages") and converts it into the format expected by codesample_languages:
+	 * [['text' => ..., 'value' => ...], ...]. 
+	 * Falls back to DEFAULT_LANGUAGES if no rows have been defined yet.
 	 *
 	 * @return array<int, array{text: string, value: string}>
 	 */
@@ -88,7 +92,7 @@ final class CodeSampleLang extends CMSPlugin implements SubscriberInterface
 	{
 		$app = Factory::getApplication();
 
-		// Nur im Backend (Editor) relevant, kann aber auch im Frontend-Editor greifen
+		// Relevant only in the backend (editor), but can also take effect in the frontend editor
 		$doc = $app->getDocument();
 
 		if (!method_exists($doc, 'getScriptOptions')) {
@@ -107,7 +111,7 @@ final class CodeSampleLang extends CMSPlugin implements SubscriberInterface
 			$options['tinyMCE'][$editorId]['codesample_languages'] = $languages;
 		}
 
-		// false = komplett überschreiben statt mergen
+		// false = completely overwrite instead of merging
 		$doc->addScriptOptions('plg_editor_tinymce', $options, false);
 	}
 }
