@@ -1,86 +1,87 @@
 # System - Code Sample Languages (plg_system_codesamplelang)
 
-Erweitert die Sprachliste im TinyMCE **„Code-Beispiel einfügen“**-Dialog
-(`codesample`-Plugin, PRISM-basiert) um zusätzliche Sprachen – bequem über
-die Plugin-Einstellungen im Backend, ohne Codeänderung.
+Extends the language list in the TinyMCE **"Insert Code Sample"** dialog
+(`codesample` plugin, PRISM-based) with additional languages – conveniently
+via the plugin settings in the backend, without any code changes.
 
-## Hintergrund / Problem
+## Background / Problem
 
-TinyMCE bringt im Code-Beispiel-Dialog von Haus aus nur 10 Sprachen mit:
+TinyMCE ships with only 10 languages by default in the code sample dialog:
 
 HTML/XML, JavaScript, CSS, PHP, Ruby, Python, Java, C, C#, C++
 
-Diese Liste (`codesample_languages`) lässt sich über die normale
-Joomla-Backend-Oberfläche nicht erweitern. Dieses Plugin klinkt sich über
-die offizielle Joomla-Document-API (`getScriptOptions` /
-`addScriptOptions`) in das Event `onBeforeRender` ein und überschreibt die
-Sprachliste – ohne Core-Dateien zu verändern.
+This list (`codesample_languages`) cannot be extended through the normal
+Joomla backend interface. This plugin hooks into the `onBeforeRender` event
+via the official Joomla Document API (`getScriptOptions` /
+`addScriptOptions`) and overrides the language list – without modifying
+any core files.
 
-## Voraussetzungen
+## Requirements
 
-- Joomla 5 oder 6 (TinyMCE 6, namespaced Plugins)
-- Das Editor-Plugin **TinyMCE** muss aktiv sein
-- Für die Frontend-Darstellung: das PRISM-Syntax-Highlighter-Plugin
-  (Andre Hotzler) oder ein vergleichbares Prism.js-Setup
+- Joomla 5 or 6 (TinyMCE 6, namespaced plugins)
+- The **TinyMCE** editor plugin must be active
+- For frontend display: the PRISM syntax highlighter plugin
+  (Andre Hotzler) or a comparable Prism.js setup
 
 ## Installation
 
-1. `plg_system_codesamplelang.zip` unter
-   **System → Verwalten → Erweiterungen installieren** hochladen.
-2. Unter **System → Plugins** nach **„System - Code Sample Languages“**
-   suchen und aktivieren.
-3. Cache leeren (System-Cache und Browser-Cache).
+1. Upload `plg_system_codesamplelang.zip` under
+   **System → Manage → Install Extensions**.
+2. Under **System → Plugins** search for **"System - Code Sample Languages"**
+   and enable it.
+3. Clear the cache (system cache and browser cache).
 
-## Bedienung
+## Usage
 
-Unter **System → Plugins → System - Code Sample Languages** gibt es zwei
-Einstellungen:
+Under **System → Plugins → System - Code Sample Languages** there are two
+settings:
 
-### 1. „Anzuzeigende Sprachen“
+### 1. "Languages to Display"
 
-| Option | Ergebnis im Dropdown |
+| Option | Result in the dropdown |
 |---|---|
-| Standardsprachen + zusätzliche Sprachen *(Standard)* | TinyMCE-Basis-10 **plus** die unten eingetragenen Sprachen |
-| Nur die 10 eingebauten TinyMCE-Standardsprachen | Nur die Basis-10, Tabelle wird ignoriert |
-| Nur die unten gelisteten zusätzlichen Sprachen | Nur das, was in der Tabelle steht |
+| Default languages + additional languages *(Default)* | TinyMCE base 10 **plus** the languages entered below |
+| Only the 10 built-in TinyMCE default languages | Only the base 10, table is ignored |
+| Only the additional languages listed below | Only what's in the table |
 
-### 2. „Sprachen“ (Tabelle)
+### 2. "Languages" (table)
 
-Pro Zeile:
+Per row:
 
-- **Anzeigename** – Text im Dropdown, z. B. `Kotlin`
-- **Prism-Wert** – technische Kennung von
+- **Display name** – text shown in the dropdown, e.g. `Kotlin`
+- **Prism value** – technical identifier from
   [prismjs.com/#supported-languages](https://prismjs.com/#supported-languages),
-  z. B. `kotlin`, `sql`, `bash`, `go`, `rust`, `powershell`, `docker`
+  e.g. `kotlin`, `sql`, `bash`, `go`, `rust`, `powershell`, `docker`
 
-Trägst du hier eine `value` ein, die es bereits in der TinyMCE-Basisliste
-gibt (z. B. `php`), wird nur der Anzeigename überschrieben – es entsteht
-kein doppelter Dropdown-Eintrag.
+If you enter a `value` here that already exists in the TinyMCE base list
+(e.g. `php`), only the display name is overwritten – no duplicate dropdown
+entry is created.
 
-## Wichtig: Frontend-Darstellung
+## Important: Frontend Display
 
-Damit eine neue Sprache im **Frontend** auch farblich hervorgehoben wird,
-muss Prism.js die passende Sprachkomponente laden. Im PRISM-Plugin
-(Andre Hotzler) empfiehlt sich dafür die Autoloader-Option **„all“**,
-sonst bleiben neu hinzugefügte Sprachen im Frontend unformatiert, auch
-wenn sie im Editor bereits auswählbar sind.
+For a newly added language to also be syntax-highlighted in the
+**frontend**, Prism.js needs to load the matching language component. In
+the PRISM plugin (Andre Hotzler), the autoloader option **"all"** is
+recommended for this – otherwise newly added languages will remain
+unformatted in the frontend, even if they are already selectable in the
+editor.
 
-## Technische Details
+## Technical Details
 
-- `services/provider.php` – Dependency-Injection-Registrierung (Joomla-4/5/6-Standard)
-- `src/Extension/CodeSampleLang.php` – eigentliche Logik, hört auf `onBeforeRender`
-- `script.php` – Installer-Skript, befüllt bei Erstinstallation optional Beispiel-Zusatzsprachen
-- `language/en-GB/`, `language/de-DE/` – Backend-Übersetzungen (weitere Sprachen ergänzbar)
+- `services/provider.php` – dependency injection registration (Joomla 4/5/6 standard)
+- `src/Extension/CodeSampleLang.php` – actual logic, listens to `onBeforeRender`
+- `script.php` – installer script, optionally populates sample additional languages on first install
+- `language/en-GB/`, `language/de-DE/` – backend translations (more languages can be added)
 
-## Lizenz
+## License
 
-GPL v2 oder später, siehe `LICENSE.txt`.
+GPL v2 or later, see `LICENSE.txt`.
 
-## Bekannte Grenzen
+## Known Limitations
 
-- Es lassen sich aktuell nur Sprachen **hinzufügen**/**anzeigen wählen**,
-  nicht einzelne der 10 Basissprachen gezielt entfernen (dafür den Modus
-  „Nur zusätzliche Sprachen“ nutzen und die gewünschten Basissprachen mit
-  in die Tabelle eintragen).
-- Getestet mit Joomla 6 / TinyMCE 6. Ältere Joomla-Versionen (TinyMCE ≤ 5)
-  werden nicht unterstützt.
+- Currently, languages can only be **added**/**selected for display**,
+  not individually removed from the 10 base languages (for that, use the
+  "Only additional languages" mode and include the desired base languages
+  in the table as well).
+- Tested with Joomla 6 / TinyMCE 6. Older Joomla versions (TinyMCE ≤ 5)
+  are not supported.
