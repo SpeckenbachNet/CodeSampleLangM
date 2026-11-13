@@ -16,8 +16,14 @@ use Joomla\Event\SubscriberInterface;
 /**
  * Sets the language list of TinyMCE's "Insert/Edit code sample" dialog (codesample plugin, Prism based).
  *
- * The list from the plugin settings replaces TinyMCE's built-in list. Each value has to be a Prism
- * language identifier; TinyMCE writes it as class="language-xxx" into the <code> element.
+ * Modes (setting "mode"):
+ *   merge     TinyMCE's standard languages plus the languages from the table (default);
+ *             a table row with a standard value only renames that entry
+ *   standard  only TinyMCE's standard languages, the table is ignored
+ *   custom    only the languages from the table
+ *
+ * Each value has to be a Prism language identifier; TinyMCE writes it as class="language-xxx" into the
+ * <code> element.
  *
  * Runs in onBeforeRender: the component (and with it the editor) has been rendered and has stored its
  * options, the document itself has not been rendered yet. Editors inside modules are rendered later
@@ -27,6 +33,20 @@ final class CodeSampleLang extends CMSPlugin implements SubscriberInterface
 {
     /** Script options key of the TinyMCE editor plugin */
     private const OPTIONS_KEY = 'plg_editor_tinymce';
+
+    /** TinyMCE's built-in list (codesample plugin default), in TinyMCE's order */
+    private const STANDARD_LANGUAGES = [
+        ['text' => 'HTML/XML',   'value' => 'markup'],
+        ['text' => 'JavaScript', 'value' => 'javascript'],
+        ['text' => 'CSS',        'value' => 'css'],
+        ['text' => 'PHP',        'value' => 'php'],
+        ['text' => 'Ruby',       'value' => 'ruby'],
+        ['text' => 'Python',     'value' => 'python'],
+        ['text' => 'Java',       'value' => 'java'],
+        ['text' => 'C',          'value' => 'c'],
+        ['text' => 'C#',         'value' => 'csharp'],
+        ['text' => 'C++',        'value' => 'cpp'],
+    ];
 
     public static function getSubscribedEvents(): array
     {
@@ -50,10 +70,10 @@ final class CodeSampleLang extends CMSPlugin implements SubscriberInterface
             return;
         }
 
-        $languages = $this->getConfiguredLanguages();
+        $languages = $this->getLanguages();
 
-        // Nothing saved yet: keep TinyMCE's built-in list
-        if ($languages === []) {
+        // TinyMCE's own list is wanted: leave the options alone
+        if ($languages === null) {
             return;
         }
 
@@ -67,12 +87,45 @@ final class CodeSampleLang extends CMSPlugin implements SubscriberInterface
     }
 
     /**
-     * Reads the language list (subform "languages") from the plugin settings.
-     * Rows with an empty name or value are skipped.
+     * Builds the dropdown list for the selected mode.
+     *
+     * @return  array<int, array{text: string, value: string}>|null  null = keep TinyMCE's list
+     */
+    private function getLanguages(): ?array
+    {
+        $mode  = (string) $this->params->get('mode', 'merge');
+        $table = $this->getTableLanguages();
+
+        // An empty table never empties the dropdown
+        if ($mode === 'standard' || $table === []) {
+            return null;
+        }
+
+        if ($mode === 'custom') {
+            return $table;
+        }
+
+        // merge: standard languages first, a table row with a standard value renames that entry
+        $languages = [];
+
+        foreach (self::STANDARD_LANGUAGES as $language) {
+            $languages[$language['value']] = $language;
+        }
+
+        foreach ($table as $language) {
+            $languages[$language['value']] = $language;
+        }
+
+        return array_values($languages);
+    }
+
+    /**
+     * Reads the table (subform "languages") from the plugin settings.
+     * Rows with an empty name or value are skipped, a repeated value keeps its last row.
      *
      * @return  array<int, array{text: string, value: string}>
      */
-    private function getConfiguredLanguages(): array
+    private function getTableLanguages(): array
     {
         $rows = $this->params->get('languages');
 
@@ -91,9 +144,9 @@ final class CodeSampleLang extends CMSPlugin implements SubscriberInterface
                 continue;
             }
 
-            $languages[] = ['text' => $text, 'value' => $value];
+            $languages[$value] = ['text' => $text, 'value' => $value];
         }
 
-        return $languages;
+        return array_values($languages);
     }
 }

@@ -6,7 +6,7 @@
     <authorUrl>https://software.speckenbach.net</authorUrl>
     <creationDate>2026-11-13</creationDate>
     <license>GNU General Public License version 2 or later</license>
-    <version>1.3.0</version>
+    <version>1.3.1</version>
     <description>PLG_SYSTEM_CODESAMPLELANG_XML_DESCRIPTION</description>
 
     <namespace path="src">SpeckenbachNet\Plugin\System\CodeSampleLang</namespace>
@@ -32,7 +32,17 @@
                     class="alert alert-info"
                     description="PLG_SYSTEM_CODESAMPLELANG_FIELD_NOTE_HELP_DESC"
                 />
-                <!-- Default = TinyMCE's built-in list, so a fresh install shows what the dropdown contains -->
+                <field
+                    name="mode"
+                    type="list"
+                    label="PLG_SYSTEM_CODESAMPLELANG_FIELD_MODE_LABEL"
+                    default="merge"
+                    validate="options"
+                >
+                    <option value="merge">PLG_SYSTEM_CODESAMPLELANG_FIELD_MODE_MERGE</option>
+                    <option value="standard">PLG_SYSTEM_CODESAMPLELANG_FIELD_MODE_STANDARD</option>
+                    <option value="custom">PLG_SYSTEM_CODESAMPLELANG_FIELD_MODE_CUSTOM</option>
+                </field>
                 <field
                     name="languages"
                     type="subform"
@@ -41,7 +51,7 @@
                     multiple="true"
                     layout="joomla.form.field.subform.repeatable-table"
                     buttons="add,remove,move"
-                    default='{"languages0":{"text":"HTML/XML","value":"markup"},"languages1":{"text":"JavaScript","value":"javascript"},"languages2":{"text":"CSS","value":"css"},"languages3":{"text":"PHP","value":"php"},"languages4":{"text":"Ruby","value":"ruby"},"languages5":{"text":"Python","value":"python"},"languages6":{"text":"Java","value":"java"},"languages7":{"text":"C","value":"c"},"languages8":{"text":"C#","value":"csharp"},"languages9":{"text":"C++","value":"cpp"}}'
+                    showon="mode!:standard"
                 >
                     <form hidden="true">
                         <field

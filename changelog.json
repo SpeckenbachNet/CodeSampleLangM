@@ -1,5 +1,20 @@
 [
     {
+        "version": "1.3.1",
+        "changes": {
+            "en-GB": [
+                "Fixed: the setting \"Languages to show\" is back: standard languages plus additional ones (default), only the 10 standard languages, or only the languages from the table",
+                "Changed: the table no longer comes pre-filled; with the default setting it only holds the additional languages",
+                "A row with a standard value (e.g. php) renames that entry instead of adding a second one"
+            ],
+            "de-DE": [
+                "Behoben: Die Einstellung „Anzuzeigende Sprachen“ ist zurück: Standardsprachen + zusätzliche Sprachen (Standard), nur die 10 Standardsprachen oder nur die Sprachen aus der Tabelle",
+                "Geändert: Die Tabelle ist nicht mehr vorbelegt; mit der Standardeinstellung enthält sie nur die zusätzlichen Sprachen",
+                "Eine Zeile mit einem Standardwert (z. B. php) ändert nur den Namen dieses Eintrags, statt einen zweiten anzulegen"
+            ]
+        }
+    },
+    {
         "version": "1.3.0",
         "changes": {
             "en-GB": [
