@@ -1,2 +1,6 @@
 .vscode/sftp.json
 .DS_Store
+/_dev/
+/build/
+.claude/
+CLAUDE.md

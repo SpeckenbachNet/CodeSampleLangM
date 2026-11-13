@@ -1,0 +1,19 @@
+[
+    {
+        "version": "1.3.0",
+        "changes": {
+            "en-GB": [
+                "New: a fresh install shows TinyMCE's standard languages in the list, so it is clear that the list replaces the dropdown",
+                "Improved: setting texts explain that the list replaces TinyMCE's languages; placeholders for name and Prism value",
+                "Improved: updates via System → Update",
+                "Changed: plugin name \"System - CodeSampleLangM\", code cleaned up"
+            ],
+            "de-DE": [
+                "Neu: Nach einer Neuinstallation stehen die Standardsprachen von TinyMCE in der Liste, so ist klar, dass die Liste das Dropdown ersetzt",
+                "Verbessert: Die Texte der Einstellungen erklären, dass die Liste die Sprachen von TinyMCE ersetzt; Platzhalter für Name und Prism-Wert",
+                "Verbessert: Updates über System → Aktualisieren",
+                "Geändert: Plugin-Name „System - CodeSampleLangM“, Code aufgeräumt"
+            ]
+        }
+    }
+]
